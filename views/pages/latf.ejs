@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Look At These Jokers</title>
+	<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+</head>
+<body>
+	<h2>The H(y)ugest Policital Commentary on the Internet, Bigly.</h2><br>
+	All posts from reddit.com/r/the_donald. Refresh for more posts. Click a title for the Reddit thread, or thumbnail for the link.
+	<br><a href='/halloffame'>Hall of Fame</a><br><br>
+	<form action='/hof' method='POST'>
+		<table class="posts">
+				<tr>
+					<th>Submit</th>
+					<th>Thumbnail</th>
+					<th>Post Title</th>
+					<th>Author</th>
+					<th>Score</th>
+				</tr>
+			<% for(var i=0; i<posts.length; i++) {%>
+				<tr>
+					<td class='box'><input type='checkbox' name='redditPost' value='<%= posts[i].id %>'></td>
+					<td style='text-align:center;'>
+						<a href="<%= posts[i].url %>">
+							<img src="<%= posts[i].thumbnail %>" style="max-height: 60px;" 
+								onError="this.onerror=null;this.src='/trump.png';">
+						</a>
+					</td>
+					<td style='padding-left: 10px;'>
+					  <a href="<%= 'https://reddit.com/r/' + posts[i].subreddit.display_name + '/comments/' + posts[i].id %>">
+						<%= posts[i].title %>
+					  </a>
+					</td>
+					<td class='author'>u/<%= posts[i].author.name %></td>
+					<td class='score'><%= posts[i].score %></td>
+				</tr>
+			<% } %>
+		</table><br>
+		<div id='submit'>
+			<input type='submit' value='Save to the Hall'>
+		</div>
+	</form>
+</body>
+</html>
+
+

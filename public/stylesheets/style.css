@@ -1,0 +1,35 @@
+body {
+	 text-align: center;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+th {
+	font-weight: bold;
+	text-align: center;
+}
+
+table {
+	width: 85%;
+	margin: 0 auto;
+}
+
+input {
+	text-align: center;
+}
+
+.box {
+	text-align: center;
+}
+
+.score {
+	text-align: right;
+	width: 60px;
+}
+
+.author {
+	width: 200px;
+	padding-left: 10px;
+}
