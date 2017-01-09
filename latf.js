@@ -24,23 +24,6 @@ var searchTerms = [
 	'cunt'
 ]
 
-// var i;
-// var posts = [];
-// var promises = [];
-
-// for (i = 0; i < searchTerms.length; i++) {
-// 	var prom = r.getSubreddit('the_donald')
-// 		.search({query:searchTerms[i]})
-// 		.then( (p) => {
-// 			posts = posts.concat(p);
-// 		})
-// 	promises.push(prom);
-// };
-
-// Promise.all(promises).then((a) => {
-// 	runServer(posts);
-// });
-
 runServer();
 
 function runServer() {
@@ -105,26 +88,26 @@ function runServer() {
 		var postProms = [];
 		var empty = true;
 		var i;
+		var postArray;
 
 		if (typeof(req.body.redditPost) === 'string') {
-			var postProm = r.getSubmission(req.body.redditPost)
+			postArray = [].push(req.body.redditPost);
+			empty = false;
+		} else if (typeof(req.body.redditPost) === 'object') {
+			postArray = req.body.redditPost;
+			empty = false;
+		} else {
+			res.redirect('/');
+			console.log('blank submission')
+			return;
+		}
+		console.log(postArray)
+		for (i=0;i<postArray.length;i++) {
+			var postProm = r.getSubmission(postArray[i])
 				.fetch()
 				.catch(() => console.log('failed!'))
 				.then( x => {submissions.push(x)} )
 			postProms.push(postProm);
-			empty = false;
-		} else if (typeof(req.body.redditPost) === 'object') {
-			for (i=0;i<req.body.redditPost.length;i++) {
-				// console.log(typeof(req.body.redditPost[i]));
-				var postProm = r.getSubmission(req.body.redditPost[i])
-					.fetch()
-					.catch(() => console.log('failed!'))
-					.then( x => {submissions.push(x)} )
-				postProms.push(postProm);
-			}
-			empty = false;
-		} else {
-			res.redirect('/')
 		}
 
 		if (empty === false) {
